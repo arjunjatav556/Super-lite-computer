@@ -8,10 +8,10 @@ const sampleData = [
   {
     roll: 'SLTC-101',
     year: '2025',
+    course: 'ADCA',
     name: 'Arjun',
     father: 'Sh. Madanpal',
     mother: 'Smt. Lata',
-    course: 'ADCA', // 🟢 Course Added
     subjects: [
       {name:'Computer Fundamentals', theory:78, practical:12, theoryMax:80, practicalMax:20},
       {name:'MS Office', theory:90, practical:45, theoryMax:100, practicalMax:50}
@@ -20,10 +20,10 @@ const sampleData = [
   {
     roll: 'SLCTC-102',
     year: '2025',
+    course: 'DCA',
     name: 'Sita Verma',
     father: 'Sh. Rajesh Verma',
     mother: 'Smt. Meena Verma',
-    course: 'DCA', // 🟢 Course Added
     subjects: [
       {name:'Computer Fundamentals', theory:66, practical:10, theoryMax:80, practicalMax:20},
       {name:'MS Office', theory:72, practical:8, theoryMax:80, practicalMax:20}
@@ -32,13 +32,13 @@ const sampleData = [
   {
     roll: 'SLCTC-201',
     year: '2024',
+    course: 'TALLY',
     name: 'Amit Singh',
     father: 'Sh. Vinod Singh',
     mother: 'Smt. Lata Singh',
-    course: 'PGDCA', // 🟢 Course Added
     subjects: [
-      {name:'DCA Theory', theory:56, practical:0, theoryMax:100, practicalMax:0},
-      {name:'Project', theory:64, practical:0, theoryMax:100, practicalMax:0}
+      {name:'Accounting Basics', theory:75, practical:20, theoryMax:100, practicalMax:25},
+      {name:'GST Project', theory:80, practical:0, theoryMax:100, practicalMax:0}
     ]
   }
 ];
@@ -62,10 +62,7 @@ function gradeFromPct(p){
   return 'F';
 }
 
-function statusFromPct(p){
-  return p >= 45 ? 'Pass' : 'Fail';
-}
-
+function statusFromPct(p){ return p >= 45 ? 'Pass' : 'Fail'; }
 function divisionFromPct(p){
   if(p>=60) return 'First Division';
   if(p>=45) return 'Second Division';
@@ -90,7 +87,7 @@ function renderResult(rec){
         <div>
           <strong style="font-size:16px">${rec.name}</strong><br>
           <div class="meta">Roll: <strong>${rec.roll}</strong> &nbsp;|&nbsp; Year: <strong>${rec.year}</strong></div>
-          <div class="meta">Course: <strong>${rec.course}</strong></div> <!-- 🟢 Course Display -->
+          <div class="meta">Course: <strong>${rec.course}</strong></div>
         </div>
         <div style="text-align:right">
           <div class="meta">Grade</div>
@@ -118,7 +115,6 @@ function renderResult(rec){
 
           <div style="margin-top:12px">
             <button onclick="window.print()">Print</button>
-            <button onclick='downloadJSON(${JSON.stringify({})})' style="background:#2a9d8f;margin-left:8px">Download JSON</button>
           </div>
         </div>
       </div>
@@ -130,21 +126,30 @@ function showMessage(msg){
   document.getElementById('resultArea').innerHTML = `<div class="card"><p class="meta">${msg}</p></div>`;
 }
 
-function downloadJSON(obj){
-  const a = document.createElement('a');
-  const file = new Blob([JSON.stringify(obj,null,2)], {type: 'application/json'});
-  a.href = URL.createObjectURL(file);
-  a.download = (obj.roll||'result') + '.json';
-  a.click();
-}
-
 document.getElementById('searchBtn').addEventListener('click', ()=>{
   const year = document.getElementById('yearSelect').value.trim();
   const roll = document.getElementById('rollInput').value.trim();
-  if(!roll){ showMessage('Please enter a roll number.'); return; }
+  const course = document.getElementById('courseSelect').value.trim();
 
-  const rec = sampleData.find(r=> r.roll.toLowerCase()===roll.toLowerCase() && r.year===year);
-  if(!rec){ showMessage('Result not found for the provided Roll No. and Year.'); return; }
+  if(!roll){ 
+    showMessage('Please enter a roll number.'); 
+    return; 
+  }
+  if(!course){ 
+    showMessage('Please select a course.'); 
+    return; 
+  }
+
+  const rec = sampleData.find(r=> 
+    r.roll.toLowerCase()===roll.toLowerCase() && 
+    r.year===year && 
+    r.course===course
+  );
+
+  if(!rec){ 
+    showMessage('Result not found for the provided Roll No., Year or Course.'); 
+    return; 
+  }
 
   document.getElementById('resultArea').innerHTML = renderResult(rec);
 });
