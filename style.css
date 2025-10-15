@@ -2,11 +2,19 @@
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #6EE7B7, #3B82F6, #9333EA);
-  background-size: 400% 400%;
-  animation: gradientMove 15s ease infinite;
   min-height: 100vh;
   color: #222;
+
+  /* Animated Gradient Background */
+  background: linear-gradient(270deg, #6EE7B7, #3B82F6, #9333EA, #F59E0B);
+  background-size: 800% 800%;
+  animation: gradientMove 20s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @keyframes gradientMove {
