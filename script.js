@@ -23,7 +23,7 @@ const sampleData = [
   {
     roll: 'SLTC-110',
     year: '2025',
-    course: 'BASIC',
+    course: 'TALLY',
     name: 'AHAM',
     father: 'Sh. PAWAN',
     mother: 'Smt. ANJALI',
