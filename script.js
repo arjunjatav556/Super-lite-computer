@@ -18,6 +18,18 @@ const sampleData = [
     ]
   },
   {
+    roll: 'SLTC-112',
+    year: '2025',
+    course: 'ADCA',
+    name: 'Aham',
+    father: 'Sh. Pawan',
+    mother: 'Smt. None',
+    subjects: [
+      {name:'Computer Fundamentals', theory:78, practical:12, theoryMax:80, practicalMax:20},
+      {name:'MS Office', theory:90, practical:45, theoryMax:100, practicalMax:50}
+    ]
+  },
+  {
     roll: 'SLCTC-102',
     year: '2025',
     course: 'DCA',
